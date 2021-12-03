@@ -126,7 +126,7 @@ class WrapEthStep extends React.Component<Props, State> {
             advanceStep();
         } catch (err) {
             let exception = err;
-            let errorCaption = UNEXPECTED_ERROR;
+            let errorCaption = 'Unable to wrap ETH to wETH. Use an alternate dapp such as Uniswap to wrap ETH.';
             if (err.toString().includes(USER_DENIED_TRANSACTION_SIGNATURE_ERR)) {
                 exception = new UserDeniedTransactionSignatureException();
                 errorCaption = USER_DENIED_TRANSACTION_SIGNATURE_ERR;

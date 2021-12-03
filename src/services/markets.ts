@@ -1,14 +1,16 @@
 import { BigNumber } from '@0x/utils';
 
-const ETH_MARKET_PRICE_API_ENDPOINT = 'https://api.coinmarketcap.com/v1/ticker/ethereum/';
+const ETH_MARKET_PRICE_API_ENDPOINT = 'https://api.coingecko.com/api/v3/coins/ethereum/tickers';
 
 export const getMarketPriceEther = async (): Promise<BigNumber> => {
     const promisePriceEtherResolved = await fetch(ETH_MARKET_PRICE_API_ENDPOINT);
+
     if (promisePriceEtherResolved.status === 200) {
         const data = await promisePriceEtherResolved.json();
-        if (data && data.length) {
-            const item = data[0];
-            const priceTokenUSD = new BigNumber(item.price_usd);
+
+        if (data && data.tickers && data.tickers.length) {
+            const item = data.tickers[0];
+            const priceTokenUSD = new BigNumber(item.last);
             return priceTokenUSD;
         }
     }
